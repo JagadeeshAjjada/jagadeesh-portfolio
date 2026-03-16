@@ -249,7 +249,7 @@
     margin-right: 20%;
   }
   .what-box-in {
-    height: 620px;
+    height: 400px;
   }
   .what-content h3 {
     font-size: 28px;
@@ -290,7 +290,7 @@
     padding-bottom: 50px;
   }
   .what-box-in {
-    height: 700px;
+    height: 500px;
     margin-left: -50px;
   }
   .what-content {
@@ -302,7 +302,7 @@
   }
   .what-noTouch:hover,
   .what-content-active {
-    min-height: 76%;
+    min-height: 67%;
     padding: 50px;
   }
 
@@ -326,7 +326,7 @@
     justify-content: left;
   }
   .what-box:last-child {
-    height: 660px;
+    height: 500px;
   }
   .what-box {
     width: 500px;
@@ -338,7 +338,7 @@
   }
   .what-box-in {
     margin-left: 0px;
-    height: 640px;
+    height: 450px;
   }
   .what-content h5,
   .what-content-flex {
