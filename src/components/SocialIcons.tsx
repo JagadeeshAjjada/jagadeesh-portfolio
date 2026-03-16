@@ -7,7 +7,11 @@ import { TbNotes } from "react-icons/tb";
 import { useEffect } from "react";
 import HoverLinks from "./HoverLinks";
 
-const SocialIcons = () => {
+interface SocialIconsProps {
+  onResumeOpen: () => void;
+}
+
+const SocialIcons = ({ onResumeOpen }: SocialIconsProps) => {
   useEffect(() => {
     const social = document.getElementById("social") as HTMLElement;
 
@@ -68,12 +72,16 @@ const SocialIcons = () => {
           </a>
         </span>
       </div>
-      <a className="resume-button" href="#">
+      <button
+        className="resume-button"
+        data-cursor="disable"
+        onClick={onResumeOpen}
+      >
         <HoverLinks text="RESUME" />
         <span>
           <TbNotes />
         </span>
-      </a>
+      </button>
     </div>
   );
 };

@@ -5,6 +5,7 @@ import Contact from "./Contact";
 import Cursor from "./Cursor";
 import Landing from "./Landing";
 import Navbar from "./Navbar";
+import ResumeModal from "./ResumeModal";
 import SocialIcons from "./SocialIcons";
 import WhatIDo from "./WhatIDo";
 import Work from "./Work";
@@ -16,6 +17,7 @@ const MainContainer = ({ children }: PropsWithChildren) => {
   const [isDesktopView, setIsDesktopView] = useState<boolean>(
     window.innerWidth > 1024
   );
+  const [showResume, setShowResume] = useState(false);
 
   useEffect(() => {
     const resizeHandler = () => {
@@ -33,7 +35,8 @@ const MainContainer = ({ children }: PropsWithChildren) => {
     <div className="container-main">
       <Cursor />
       <Navbar />
-      <SocialIcons />
+      <SocialIcons onResumeOpen={() => setShowResume(true)} />
+      {showResume && <ResumeModal onClose={() => setShowResume(false)} />}
       {isDesktopView && children}
       <div id="smooth-wrapper">
         <div id="smooth-content">
