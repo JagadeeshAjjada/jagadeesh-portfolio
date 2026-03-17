@@ -195,15 +195,6 @@ const TechStack = () => {
     <div className="techstack">
       <h2> My Techstack</h2>
 
-      <div className="techstack-bg-skills">
-        {skillCategories.map((cat, i) => (
-          <div key={i} className="bg-skill-row">
-            <span className="bg-skill-heading">{cat.title}:</span>
-            <span className="bg-skill-items">{cat.skills.join(", ")}</span>
-          </div>
-        ))}
-      </div>
-
       <Canvas
         shadows
         gl={{ alpha: true, stencil: false, depth: false, antialias: false }}
@@ -241,6 +232,15 @@ const TechStack = () => {
           <N8AO color="#0f002c" aoRadius={2} intensity={1.15} />
         </EffectComposer>
       </Canvas>
+
+      <div className="techstack-bg-skills">
+        {skillCategories.map((cat, i) => (
+          <div key={i} className="bg-skill-row">
+            <span className="bg-skill-heading">{cat.title}:</span>
+            <span className="bg-skill-items">{cat.skills.join(", ")}</span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
