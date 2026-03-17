@@ -8,31 +8,31 @@ const projects = [
     title: "AI Chatbot",
     category: "AI / ML",
     tools: "Python, Streamlit, LangChain, Mistral 7B, FAISS, Docker",
-    image: "/images/Solidx.png",
+    image: "/jagadeesh-portfolio/images/Solidx.png",
   },
   {
     title: "Real-Time Voice AI Platform",
     category: "Voice AI",
     tools: "FastAPI, Twilio, Deepgram STT/TTS, OpenAI, Anthropic, Groq",
-    image: "/images/radix.png",
+    image: "/jagadeesh-portfolio/images/radix.png",
   },
   {
     title: "Sentiment Analysis with BERT",
     category: "NLP / AI",
     tools: "Python, BERT, PyTorch, HuggingFace, Pandas, Scikit-learn",
-    image: "/images/bond.png",
+    image: "/jagadeesh-portfolio/images/bond.png",
   },
   {
     title: "RAG Model on Multi-File Types",
     category: "AI / ML",
     tools: "Python, RAG, LangChain, Vector DB, Multi-file Support",
-    image: "/images/sapphire.png",
+    image: "/jagadeesh-portfolio/images/sapphire.png",
   },
   {
     title: "Moneris Go Appetit POS",
     category: "Backend & Cloud",
     tools: "Python, Flask, FastAPI, AWS, MySQL, Docker, Elasticsearch",
-    image: "/images/Maxlife.png",
+    image: "/jagadeesh-portfolio/images/Maxlife.png",
   },
 ];
 

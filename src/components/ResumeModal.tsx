@@ -27,7 +27,7 @@ const ResumeModal = ({ onClose }: ResumeModalProps) => {
           <span className="resume-modal-title">Resume — Jagadeesh Ajjada</span>
           <div className="resume-modal-actions">
             <a
-              href="/resume.pdf"
+              href={`${import.meta.env.BASE_URL}resume.pdf`}
               download="Jagadeesh_Ajjada_Resume.pdf"
               className="resume-download-btn"
               data-cursor="disable"
@@ -46,7 +46,7 @@ const ResumeModal = ({ onClose }: ResumeModalProps) => {
         </div>
         <div className="resume-modal-body">
           <iframe
-            src="/resume.pdf"
+            src={`${import.meta.env.BASE_URL}resume.pdf`}
             title="Jagadeesh Ajjada Resume"
             className="resume-iframe"
           />

@@ -12,15 +12,16 @@ import {
 } from "@react-three/rapier";
 
 const textureLoader = new THREE.TextureLoader();
+const base = import.meta.env.BASE_URL;
 const imageUrls = [
-  "/images/python.webp",
-  "/images/docker.webp",
-  "/images/aws.webp",
-  "/images/java.webp",
-  "/images/fastapi.webp",
-  "/images/mysql.webp",
-  "/images/pytorch.webp",
-  "/images/kubernetes.webp",
+  `${base}images/python.webp`,
+  `${base}images/docker.webp`,
+  `${base}images/aws.webp`,
+  `${base}images/java.webp`,
+  `${base}images/fastapi.webp`,
+  `${base}images/mysql.webp`,
+  `${base}images/pytorch.webp`,
+  `${base}images/kubernetes.webp`,
 ];
 const textures = imageUrls.map((url) => textureLoader.load(url));
 
