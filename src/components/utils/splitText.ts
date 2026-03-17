@@ -75,6 +75,8 @@ export default function setSplitText() {
       }
     );
   });
-
-  ScrollTrigger.addEventListener("refresh", () => setSplitText());
 }
+
+// Register the refresh listener exactly once at module level — never inside the function
+// itself, which would cause an exponential pile-up of listeners on every refresh.
+ScrollTrigger.addEventListener("refresh", () => setSplitText());

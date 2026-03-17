@@ -1,66 +1,101 @@
-import { useState, useCallback } from "react";
+import { useEffect } from "react";
 import "./styles/Work.css";
-import WorkImage from "./WorkImage";
-import { MdArrowBack, MdArrowForward } from "react-icons/md";
+import { MdArrowOutward } from "react-icons/md";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+const base = import.meta.env.BASE_URL;
+
+const categoryColors: Record<string, string> = {
+  "AI / ML":         "#5eead4",
+  "NLP / AI":        "#38bdf8",
+  "Voice AI":        "#a78bfa",
+  "Computer Vision": "#f472b6",
+  "Data Analytics":  "#facc15",
+  "Backend & Cloud": "#fb923c",
+};
 
 const projects = [
   {
-    title: "AI Chatbot",
+    title: "RAG AI Chatbot",
     category: "AI / ML",
-    tools: "Python, Streamlit, LangChain, Mistral 7B, FAISS, Docker",
-    image: "/jagadeesh-portfolio/images/Solidx.png",
-  },
-  {
-    title: "Real-Time Voice AI Platform",
-    category: "Voice AI",
-    tools: "FastAPI, Twilio, Deepgram STT/TTS, OpenAI, Anthropic, Groq",
-    image: "/jagadeesh-portfolio/images/radix.png",
+    tools: ["Python", "LangChain", "RAG", "FAISS", "LLM", "Streamlit"],
+    image: `${base}images/Solidx.png`,
+    link: "https://github.com/JagadeeshAjjada/RAG_AI_Chat_bot",
+    desc: "Production-ready RAG chatbot with vector search, memory, and LLM integration.",
   },
   {
     title: "Sentiment Analysis with BERT",
     category: "NLP / AI",
-    tools: "Python, BERT, PyTorch, HuggingFace, Pandas, Scikit-learn",
-    image: "/jagadeesh-portfolio/images/bond.png",
+    tools: ["Python", "BERT", "HuggingFace", "PyTorch", "Pandas", "Scikit-learn"],
+    image: `${base}images/bond.png`,
+    link: "https://github.com/JagadeeshAjjada/Sentiment_Analysis_with_BERT_Transformers",
+    desc: "Fine-tuned BERT transformer for multi-class sentiment classification at scale.",
   },
   {
-    title: "RAG Model on Multi-File Types",
+    title: "RAG on Multi-File & Web",
     category: "AI / ML",
-    tools: "Python, RAG, LangChain, Vector DB, Multi-file Support",
-    image: "/jagadeesh-portfolio/images/sapphire.png",
+    tools: ["Python", "LangChain", "RAG", "Vector DB", "PDF/CSV/DOCX", "Web Scraping"],
+    image: `${base}images/sapphire.png`,
+    link: "https://github.com/JagadeeshAjjada/RAG_model_on_multi_file_type_and_website",
+    desc: "Unified retrieval pipeline ingesting PDFs, CSVs, DOCXs, and live web content.",
+  },
+  {
+    title: "JARVIS AI Assistant",
+    category: "AI / ML",
+    tools: ["Python", "OpenAI", "Speech Recognition", "NLP", "TTS", "Automation"],
+    image: `${base}images/radix.png`,
+    link: "https://github.com/JagadeeshAjjada/JARVIS_AI",
+    desc: "Iron Man-inspired AI assistant with voice commands, web search, and task automation.",
+  },
+  {
+    title: "RAG over Audio",
+    category: "Voice AI",
+    tools: ["Python", "Whisper", "LangChain", "RAG", "FAISS", "Audio Processing"],
+    image: `${base}images/rag_audio.png`,
+    link: "https://github.com/JagadeeshAjjada/RAG_over_audio",
+    desc: "End-to-end pipeline transcribing audio files and enabling Q&A over spoken content.",
+  },
+  {
+    title: "Facial Emotion Recognition",
+    category: "Computer Vision",
+    tools: ["Python", "OpenCV", "DeepFace", "Deep Learning", "TensorFlow", "Real-time"],
+    image: `${base}images/facial_emotion.png`,
+    link: "https://github.com/JagadeeshAjjada/Facial_Emotion_Recognition_using_OpenCV_and_Deepface",
+    desc: "Real-time facial emotion detection using DeepFace and OpenCV with live webcam feed.",
+  },
+  {
+    title: "Engineering Impact Dashboard",
+    category: "Data Analytics",
+    tools: ["Python", "Pandas", "Plotly", "Dash", "Data Visualization", "Analytics"],
+    image: `${base}images/eng_dashboard.png`,
+    link: "https://github.com/JagadeeshAjjada/Engineering_Impact_Dash_Analysis",
+    desc: "Interactive analytics dashboard tracking engineering team performance and impact metrics.",
   },
   {
     title: "Moneris Go Appetit POS",
     category: "Backend & Cloud",
-    tools: "Python, Flask, FastAPI, AWS, MySQL, Docker, Elasticsearch",
-    image: "/jagadeesh-portfolio/images/Maxlife.png",
+    tools: ["Python", "Flask", "FastAPI", "AWS", "MySQL", "Docker", "Elasticsearch"],
+    image: `${base}images/Maxlife.png`,
+    link: undefined,
+    desc: "Full-stack POS system with Moneris payment integration, cloud deployment, and real-time search.",
+  },
+  {
+    title: "AI Call Assistant",
+    category: "Voice AI",
+    tools: ["FastAPI", "Twilio", "Deepgram STT", "Deepgram TTS", "OpenAI", "Groq"],
+    image: `${base}images/ai_call.png`,
+    link: undefined,
+    desc: "Real-time voice AI platform with low-latency streaming, multi-LLM integration, and production telephony at Slickbit.",
   },
 ];
 
 const Work = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
-
-  const goToSlide = useCallback(
-    (index: number) => {
-      if (isAnimating) return;
-      setIsAnimating(true);
-      setCurrentIndex(index);
-      setTimeout(() => setIsAnimating(false), 500);
-    },
-    [isAnimating]
-  );
-
-  const goToPrev = useCallback(() => {
-    const newIndex =
-      currentIndex === 0 ? projects.length - 1 : currentIndex - 1;
-    goToSlide(newIndex);
-  }, [currentIndex, goToSlide]);
-
-  const goToNext = useCallback(() => {
-    const newIndex =
-      currentIndex === projects.length - 1 ? 0 : currentIndex + 1;
-    goToSlide(newIndex);
-  }, [currentIndex, goToSlide]);
+  // After the full grid renders, tell GSAP to recalculate all scroll trigger
+  // positions with the correct page height so the character animation stays smooth.
+  useEffect(() => {
+    const id = setTimeout(() => ScrollTrigger.refresh(), 300);
+    return () => clearTimeout(id);
+  }, []);
 
   return (
     <div className="work-section" id="work">
@@ -69,73 +104,63 @@ const Work = () => {
           My <span>Work</span>
         </h2>
 
-        <div className="carousel-wrapper">
-          {/* Navigation Arrows */}
-          <button
-            className="carousel-arrow carousel-arrow-left"
-            onClick={goToPrev}
-            aria-label="Previous project"
-            data-cursor="disable"
-          >
-            <MdArrowBack />
-          </button>
-          <button
-            className="carousel-arrow carousel-arrow-right"
-            onClick={goToNext}
-            aria-label="Next project"
-            data-cursor="disable"
-          >
-            <MdArrowForward />
-          </button>
-
-          {/* Slides */}
-          <div className="carousel-track-container">
-            <div
-              className="carousel-track"
-              style={{
-                transform: `translateX(-${currentIndex * 100}%)`,
-              }}
-            >
-              {projects.map((project, index) => (
-                <div className="carousel-slide" key={index}>
-                  <div className="carousel-content">
-                    <div className="carousel-info">
-                      <div className="carousel-number">
-                        <h3>0{index + 1}</h3>
-                      </div>
-                      <div className="carousel-details">
-                        <h4>{project.title}</h4>
-                        <p className="carousel-category">
-                          {project.category}
-                        </p>
-                        <div className="carousel-tools">
-                          <span className="tools-label">Tools & Features</span>
-                          <p>{project.tools}</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="carousel-image-wrapper">
-                      <WorkImage image={project.image} alt={project.title} />
-                    </div>
-                  </div>
+        <div className="work-grid">
+          {projects.map((project, i) => {
+            const color = categoryColors[project.category] ?? "#5eead4";
+            return (
+              <div className="project-card" key={i}>
+                <div
+                  className="project-card-top"
+                  style={{ backgroundImage: `url(${project.image})` }}
+                >
+                  <div
+                    className="project-card-overlay"
+                    style={{ borderColor: color }}
+                  />
+                  <span
+                    className="project-cat-chip"
+                    style={{ background: color + "22", color }}
+                  >
+                    {project.category}
+                  </span>
+                  <span className="project-num">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
                 </div>
-              ))}
-            </div>
-          </div>
 
-          {/* Dot Indicators */}
-          <div className="carousel-dots">
-            {projects.map((_, index) => (
-              <button
-                key={index}
-                className={`carousel-dot ${index === currentIndex ? "carousel-dot-active" : ""
-                  }`}
-                onClick={() => goToSlide(index)}
-                aria-label={`Go to project ${index + 1}`}
-                data-cursor="disable"
-              />
-            ))}
-          </div>
+                <div className="project-card-body">
+                  <h4 className="project-title">{project.title}</h4>
+                  <p className="project-desc">{project.desc}</p>
+                  <div className="project-tools">
+                    {project.tools.map((tool, ti) => (
+                      <span
+                        key={ti}
+                        className="tool-pill"
+                        style={{
+                          borderColor: color + "55",
+                          color: color + "cc",
+                        }}
+                      >
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                  {project.link && (
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="project-link"
+                      style={{ color }}
+                      data-cursor="disable"
+                    >
+                      View Project <MdArrowOutward />
+                    </a>
+                  )}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
